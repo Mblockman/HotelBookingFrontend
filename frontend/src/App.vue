@@ -2,6 +2,7 @@
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
   <Header_step/>
+  <p> {{ getData() }} </p>
   <Step1_menu></Step1_menu>
   <Step2_menu></Step2_menu>
   <Step3_menu></Step3_menu>
@@ -55,7 +56,21 @@ export default {
     Step12_menu,  
     Step13_menu,    
     Footer_step 
-  }
+  },
+  methods: {
+    getData() {
+      this.$axios
+        .get("http://localhost:5000/api/hotels")
+        .then((res) => {
+          //console.log(res.staus);
+          console.log(res.data[0].hImagePath);
+          this.path = res.data[0].hImagePath;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 }
 </script>
 
